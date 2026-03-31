@@ -4,12 +4,7 @@ The Plan agent enables you to create detailed implementation plans before writin
 
 ## The Plan-First Workflow
 
-```
-1. Explore   →  Use Ask mode or subagent to understand existing code
-2. Plan      →  Use the Plan agent to create a structured plan
-3. Implement →  Switch to Agent mode or hand off to background/cloud
-4. Review    →  Use checkpoints to review progress and rewind if needed
-```
+![image-20260331151242287](images/planning/image-20260331151242287.png)
 
 ## How to Use the Plan Agent
 

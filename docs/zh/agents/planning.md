@@ -1,15 +1,10 @@
-# 规划 (Planning)
+# 规划
 
 Plan 智能体使你能够在编写代码之前创建详细的实施方案。规划优先可以确保满足所有需求，并防止 AI 解决错误的问题。
 
 ## 规划优先的工作流
 
-```
-1. 探索 (Explore)   →  使用 Ask 模式或子智能体理解现有代码
-2. 规划 (Plan)      →  使用 Plan 智能体创建结构化方案
-3. 实施 (Implement) →  切换到 Agent 模式或交给后台/云端
-4. 审查 (Review)    →  使用检查点审查进度，必要时回滚
-```
+![image-20260331151321006](images/planning/image-20260331151321006.png)
 
 ## 如何使用 Plan 智能体
 
@@ -39,7 +34,11 @@ Plan 智能体使你能够在编写代码之前创建详细的实施方案。规
 
 ## 会话记忆
 
-Plan 智能体会自动将其方案保存到会话记忆文件 (`/memories/session/plan.md`)。通过 `Chat: Show Memory Files` 访问。会话记忆在对话结束时清除。
+Plan 智能体会自动将其方案保存到会话记忆文件 (`/memories/session/plan.md`)。
+
+通过 `Chat: Show Memory Files` 访问。
+
+会话记忆在对话结束时清除。
 
 ## 自定义规划
 
