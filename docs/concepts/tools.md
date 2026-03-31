@@ -23,7 +23,11 @@ You can also explicitly reference tools with `#tool:<tool-name>` in your prompts
 
 ## Controlling Available Tools
 
-Use the **Configure Tools** button in the chat input to enable/disable individual tools. Limiting tools helps in several ways:
+Use the **Configure Tools** button in the chat input to enable/disable individual tools. 
+
+![image-20260331143530204](images/tools/image-20260331143530204.png)
+
+Limiting tools helps in several ways:
 
 - **Preserve context** — fewer tool calls means less context consumed
 - **Get more relevant results** — the agent focuses on the most appropriate tools
@@ -33,7 +37,9 @@ You can also control tools through [prompt files](/customization/prompt-files) a
 
 ## Tool Approval and Trust
 
-Tools can modify files, your environment, or access external services. VS Code provides security controls:
+Tools can modify files, your environment, or access external services. 
+
+VS Code provides security controls:
 
 - **Approval prompts** — tools with side effects show a confirmation dialog before running
 - **URL approval** — two-step process for verifying web requests and response content
