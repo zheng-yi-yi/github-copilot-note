@@ -52,21 +52,4 @@ This guide covers everything from foundational concepts to advanced agent workfl
 
 ## 📄 License
 
-[MIT](./LICENSE)
-
-
-# Start dev server
-
-```bash
-npm run docs:dev
-```
-
-# Build for production
-
-```bash
-npm run docs:build
-```
-
-## License
-
 [GPL-3.0](./LICENSE)
