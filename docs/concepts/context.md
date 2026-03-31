@@ -10,19 +10,7 @@ A prompt with relevant files, clear instructions, and focused history produces b
 
 When you send a message, VS Code builds a prompt from multiple sources:
 
-```
-┌──────────────────────────────────┐
-│ System instructions              │  Built-in guidelines for agent behavior
-│ Customizations                   │  Custom agents, skills, instructions
-│ User message                     │  Your current prompt
-│ Conversation history             │  Messages exchanged so far
-│ Implicit context                 │  Active file, selection, errors, git state
-│ Explicit references              │  Files, URLs, symbols you #-reference
-│ Tool outputs                     │  Results from file reads, terminal, search
-└──────────────────────────────────┘
-          ↓
-    Language Model
-```
+![image-20260331135747117](images/context/image-20260331135747117.png)
 
 ## Types of Context
 
