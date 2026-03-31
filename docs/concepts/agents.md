@@ -6,20 +6,11 @@ Agents are the orchestration layer that combines language models, context, and t
 
 The core mechanism behind agent mode:
 
-```
-User prompt
-    ↓
-┌─────────────────┐
-│ Assemble context │ ← files, history, instructions, tool outputs
-│ Call LLM         │
-│ Execute tools    │ → read files, edit code, run terminal, search
-│ Check result     │
-└────────┬────────┘
-         │ not done
-         └──→ loop back
-```
+![image-20260331144103840](images/agents/image-20260331144103840.png)
 
-Each iteration: the agent assembles context → calls the model → executes tools → feeds results back. This continues until the task is complete or the agent needs your input.
+Each iteration: the agent assembles context → calls the model → executes tools → feeds results back. 
+
+This continues until the task is complete or the agent needs your input.
 
 ## Agent Types
 
