@@ -12,12 +12,7 @@ Understanding the core concepts behind GitHub Copilot helps you use it more effe
 
 ## The Big Picture
 
-```
-You (prompt) → Agent → LLM + Context + Tools → Response
-                 ↑
-          Customization layer
-    (instructions, skills, agents, MCP, hooks)
-```
+![image-20260331121336389](images/index/image-20260331121336389.png)
 
 1. You send a **prompt** to an **agent** in the Chat view.
 2. The agent assembles **context** (files, history, instructions, tool outputs) and sends it to a **language model**.
