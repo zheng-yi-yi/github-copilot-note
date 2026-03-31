@@ -25,16 +25,7 @@ AI models have broad general knowledge but don't know your codebase or team prac
 
 ## How They Work Together
 
-```
-Always-on instructions     ──→ Applied to every request
-File-based instructions    ──→ Applied when files match patterns
-Prompt files               ──→ Invoked manually via /command
-Agent skills               ──→ Loaded on-demand when relevant
-Custom agents              ──→ Selected by user or delegated to
-MCP servers                ──→ Tools available when task matches
-Hooks                      ──→ Execute at lifecycle events
-Agent plugins              ──→ Bundle all of the above
-```
+![image-20260331145212097](images/customization/image-20260331145212097.png)
 
 ## Instruction Priority
 
