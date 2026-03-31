@@ -21,7 +21,8 @@ export const sidebarEn = {
         { text: 'Memory', link: '/agents/memory' },
         { text: 'Subagents', link: '/agents/subagents' },
         { text: 'Copilot CLI', link: '/agents/copilot-cli' },
-        { text: 'Cloud Agents', link: '/agents/cloud-agents' }
+        { text: 'Cloud Agents', link: '/agents/cloud-agents' },
+        { text: 'Third-party Agents', link: '/agents/third-party-agents' }
       ]
     }
   ],
@@ -75,7 +76,8 @@ export const sidebarZh = {
         { text: '记忆', link: '/zh/agents/memory' },
         { text: '子智能体', link: '/zh/agents/subagents' },
         { text: 'Copilot CLI', link: '/zh/agents/copilot-cli' },
-        { text: '云端智能体', link: '/zh/agents/cloud-agents' }
+        { text: '云端智能体', link: '/zh/agents/cloud-agents' },
+        { text: '第三方智能体', link: '/zh/agents/third-party-agents' }
       ]
     }
   ],

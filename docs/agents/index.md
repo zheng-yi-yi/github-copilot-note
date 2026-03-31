@@ -4,11 +4,14 @@ Agents in VS Code use language models and tools to perform development tasks aut
 
 ## Agent Types
 
+![image-20260331145452744](images/index/image-20260331145452744.png)
+
 | Agent Type | Where It Runs | Interactivity | Best For |
 |---|---|---|---|
 | **Local** | Inside VS Code | High — you see every step | Interactive coding, quick iteration |
 | **Background (Copilot CLI)** | Local machine, outside VS Code | Low — runs autonomously | Well-scoped tasks, parallel work |
 | **Cloud** | Remote infrastructure | Asynchronous | Team collaboration, PR workflows |
+| **Third-party** | Local or Cloud | Varies by provider | Specific AI providers (Anthropic, OpenAI) |
 
 ## Built-in Local Agents
 
@@ -23,6 +26,7 @@ Agents in VS Code use language models and tools to perform development tasks aut
 - **[Subagents](./subagents)** — Delegate subtasks to isolated agents for focused work.
 - **[Copilot CLI](./copilot-cli)** — Run background sessions that work autonomously on your local machine.
 - **[Cloud Agents](./cloud-agents)** — Use cloud agents for team collaboration through pull requests.
+- **[Third-party Agents](./third-party-agents)** — Use specialized agents from providers like Anthropic (Claude) and OpenAI.
 
 ## Choosing the Right Agent Type
 
