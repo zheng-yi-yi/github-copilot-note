@@ -72,10 +72,11 @@ export const sidebarZh = {
       text: '智能体',
       items: [
         { text: '概述', link: '/zh/agents/' },
+        { text: '实战', link: '/zh/agents/agents-tutorial' },
         { text: '规划', link: '/zh/agents/planning' },
         { text: '记忆', link: '/zh/agents/memory' },
         { text: '子智能体', link: '/zh/agents/subagents' },
-        { text: 'Copilot CLI', link: '/zh/agents/copilot-cli' },
+        { text: '命令行界面', link: '/zh/agents/copilot-cli' },
         { text: '云端智能体', link: '/zh/agents/cloud-agents' },
         { text: '第三方智能体', link: '/zh/agents/third-party-agents' }
       ]
