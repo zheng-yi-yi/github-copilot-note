@@ -17,6 +17,7 @@ export const sidebarEn = {
       text: 'Agents',
       items: [
         { text: 'Overview', link: '/agents/' },
+        { text: 'Agents Tutorial', link: '/agents/agents-tutorial' },
         { text: 'Planning', link: '/agents/planning' },
         { text: 'Memory', link: '/agents/memory' },
         { text: 'Subagents', link: '/agents/subagents' },
