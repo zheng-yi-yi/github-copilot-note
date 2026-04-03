@@ -1,6 +1,8 @@
 # 规划
 
-Plan 智能体使你能够在编写代码之前创建详细的实施方案。规划优先可以确保满足所有需求，并防止 AI 解决错误的问题。
+Plan 智能体使你能够在编写代码之前创建详细的实施方案。
+
+规划优先可以确保满足所有需求，并防止 AI 解决错误的问题。
 
 ## 规划优先的工作流
 
@@ -8,43 +10,53 @@ Plan 智能体使你能够在编写代码之前创建详细的实施方案。规
 
 ## 如何使用 Plan 智能体
 
-1. 打开聊天视图 (<kbd>Ctrl+Alt+I</kbd>)，从智能体下拉列表中选择 **Plan**。
-2. 从高层描述你的任务：
+Github Copilot 中内置了一个 Plan Agent，用于生成计划、将任务分解为子任务、协调工作流，最终给出一份可执行的规划。
 
-```
-/plan 使用 OAuth2 和 JWT 实现用户身份验证系统
-```
+打开聊天视图 (<kbd>Ctrl+Alt+I</kbd>) 后，我们先选择  **Plan**，然后输入我们的需求。
 
-3. 回答智能体在研究后提出的任何澄清问题。
-4. 审查生成的方案 — 它包括高级概述、实施步骤和验证步骤。
-5. 通过后续提示词进行迭代，直到方案满足你的需求。
-6. 开始实施或交给 Copilot CLI / 云端智能体。
+> 也可以使用 `/plan` 指令，然后输入我们的需求，这样也会自动跳转到 Plan 模式。
 
-::: tip
-你也可以在聊天中输入 `/plan` 加任务描述来一步切换到 Plan 智能体。
+比如：
+
+![image-20260403134028008](images/planning/image-20260403134028008.png)
+
+此时，Agent 会先去 Review 当前项目的背景和实现，然后可能会问你一些澄清问题，如实回答。
+
+跑完之后会给你一份完整规划方案，包括高级概述、实施步骤和验证步骤等。
+
+![image-20260403134454351](images/planning/image-20260403134454351.png)
+
+最后点击 `Start Implementation` 去运行就行。
+
+> 方案最终确定后，我们也可以点击 `Start Implementation` 旁边的按钮，展开另外两个选项，即交给 Copilot CLI 或者云端 Agent 去做：
+>
+> ![image-20260403134549239](images/planning/image-20260403134549239.png)
+
+::: tip 提示
+在聊天中输入 `/plan` 加任务描述来一步切换到 Plan 模式。
 :::
-
-## 实施交接
-
-方案最终确定后，你可以：
-
-- **在同一会话中继续** — Agent 直接实施方案
-- **交给 Copilot CLI** — 选择 "Continue in Copilot CLI" 进行后台执行
-- **交给云端** — 选择 "Continue in Cloud" 进行基于 PR 的工作流
 
 ## 会话记忆
 
-Plan 智能体会自动将其方案保存到会话记忆文件 (`/memories/session/plan.md`)。
+如果你观察仔细，你可以看到在上面对话中，Plan Agent 自动将当前方案保存到了一个会话记忆文件里  (`/memories/session/plan.md`)。
 
-通过 `Chat: Show Memory Files` 访问。
+我们可以打开命令面板 `Ctrl + Shift + P`，选择 `Chat: Show Memory Files` 去查看当前记忆文件列表：
 
-会话记忆在对话结束时清除。
+![image-20260403134828367](images/planning/image-20260403134828367.png)
+
+> 备注：记忆文件独立作用于每个对话。
 
 ## 自定义规划
 
-- **创建自定义规划智能体** — 定义一个 `.agent.md` 并加入特定规划指令（如强制执行架构指南）。
-- **选择模型** — 使用 `chat.planAgent.defaultModel` 设置 Plan 智能体的模型，使用 `github.copilot.chat.implementAgent.model` 设置实施模型。
-- **添加额外工具** — 使用 `github.copilot.chat.planAgent.additionalTools` 为 Plan 智能体添加 MCP 服务器或其他工具的访问权限。
+我们可以为 Plan 模式制定默认模型，包括：
+
+- 规划模型：使用 [chat.planAgent.defaultModel](vscode://settings/chat.planAgent.defaultModel) 设置。
+- 实施模型：使用 [github.copilot.chat.implementAgent.model](vscode://settings/github.copilot.chat.implementAgent.model) 设置。
+
+通过 [github.copilot.chat.planAgent.additionalTools](vscode://settings/github.copilot.chat.planAgent.additionalTools) 设置，可以为Plan 模式增加 MCP 服务器或其他工具的访问权限。
+
+进一步的，我们还可以创建一个 [自定义规划智能体](../customization/custom-agents.md)，加入特定的项目架构规范指令等。
+
 
 ## 参考资料
 

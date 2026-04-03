@@ -2,45 +2,58 @@
 
 The Plan agent enables you to create detailed implementation plans before writing code. Planning first ensures all requirements are met and prevents the AI from solving the wrong problem.
 
-## The Plan-First Workflow
+## Plan-First Workflow
 
 ![image-20260331151242287](images/planning/image-20260331151242287.png)
 
 ## How to Use the Plan Agent
 
-1. Open the Chat view (<kbd>Ctrl+Alt+I</kbd>) and select **Plan** from the agents dropdown.
-2. Describe your task at a high level:
+GitHub Copilot includes a built-in Plan Agent for generating plans, breaking tasks into subtasks, coordinating workflows, and ultimately providing an executable plan.
 
-```
-/plan Implement a user authentication system with OAuth2 and JWT
-```
+Open the chat view (<kbd>Ctrl+Alt+I</kbd>), select **Plan**, and then enter your requirements.
 
-3. Answer any clarifying questions the agent asks after researching.
-4. Review the generated plan — it includes a high-level summary, implementation steps, and verification steps.
-5. Iterate with follow-up prompts until the plan meets your requirements.
-6. Start implementation or hand off to Copilot CLI / cloud agent.
+> You can also use the `/plan` command followed by your requirements to automatically switch to Plan mode.
+
+For example:
+
+![image-20260403134028008](../zh/agents/images/planning/image-20260403134028008.png)
+
+At this point, the agent will first review the current project context and implementation, then may ask you some clarifying questions. Answer truthfully.
+
+After running, it will provide you with a complete plan, including a high-level overview, implementation steps, and verification steps.
+
+![image-20260403134454351](../zh/agents/images/planning/image-20260403134454351.png)
+
+Finally, click `Start Implementation` to execute the plan.
+
+> Once the plan is finalized, you can also click the button next to `Start Implementation` to expand two additional options: hand off to Copilot CLI or a cloud agent:
+>
+> ![image-20260403134549239](../zh/agents/images/planning/image-20260403134549239.png)
 
 ::: tip
-You can also type `/plan` followed by your task description to switch to the Plan agent in one step.
+Type `/plan` followed by a task description to switch to Plan mode in one step.
 :::
-
-## Implementation Handoff
-
-Once the plan is finalized, you can:
-
-- **Continue in the same session** — the Agent implements the plan directly
-- **Hand off to Copilot CLI** — select "Continue in Copilot CLI" for background execution
-- **Hand off to cloud** — select "Continue in Cloud" for a PR-based workflow
 
 ## Session Memory
 
-The Plan agent automatically saves its plan to a session memory file (`/memories/session/plan.md`). Access it via `Chat: Show Memory Files`. Session memory is cleared when the conversation ends.
+If you look closely, you can see that in the above conversation, the Plan Agent automatically saved the current plan to a session memory file (`/memories/session/plan.md`).
+
+You can open the command palette `Ctrl + Shift + P`, select `Chat: Show Memory Files` to view the current memory file list:
+
+![image-20260403134828367](../zh/agents/images/planning/image-20260403134828367.png)
+
+> Note: Memory files are scoped to each conversation.
 
 ## Customizing Planning
 
-- **Create a custom planning agent** — define a `.agent.md` with specific planning instructions (e.g., enforcing architectural guidelines).
-- **Choose models** — use `chat.planAgent.defaultModel` for the plan agent, and `github.copilot.chat.implementAgent.model` for implementation.
-- **Add extra tools** — use `github.copilot.chat.planAgent.additionalTools` to give the plan agent access to MCP servers or other tools.
+We can define default models for Plan mode, including:
+
+- Planning model: Set using [chat.planAgent.defaultModel](vscode://settings/chat.planAgent.defaultModel).
+- Implementation model: Set using [github.copilot.chat.implementAgent.model](vscode://settings/github.copilot.chat.implementAgent.model).
+
+Through [github.copilot.chat.planAgent.additionalTools](vscode://settings/github.copilot.chat.planAgent.additionalTools), you can add access to MCP servers or other tools for Plan mode.
+
+Furthermore, you can create a [custom planning agent](../customization/custom-agents.md) with specific project architecture guidelines and instructions.
 
 ## References
 

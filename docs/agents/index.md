@@ -21,6 +21,7 @@ Agents in VS Code use language models and tools to perform development tasks aut
 
 ## What You'll Learn
 
+- **[Agent Tutorial](./agents-tutorial.md)** — Learn three different agent execution modes by building a to‑do app demo.
 - **[Planning](./planning)** — Use the Plan agent to create implementation plans before coding.
 - **[Memory](./memory)** — How agents retain context across conversations with three memory scopes.
 - **[Subagents](./subagents)** — Delegate subtasks to isolated agents for focused work.
