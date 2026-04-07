@@ -1,85 +1,94 @@
 # Memory
 
-Agents in VS Code use memory to retain context across conversations. Rather than starting from scratch each session, agents recall your preferences, apply lessons from previous tasks, and build up knowledge about your codebase.
+::: info Note
+**Copilot Memory** is in **public preview** and was enabled by default for Pro/Pro+ users on March 4, 2026.
+:::
 
-## Memory Tool (Local)
+## What is Memory?
 
-The memory tool is a built-in agent tool that saves and recalls notes as the agent works. All data is stored locally on your machine.
+GitHub Copilot Memory (also known as **Agentic Memory**) is a key capability in the Copilot ecosystem. It allows Copilot to **"remember" codebase knowledge** like a real team member, eliminating the need to re-explain context in every conversation.
 
-::: tip
-Enable or disable the memory tool with the `github.copilot.chat.tools.memory.enabled` setting.
+It consists of **two complementary systems**:
+
+| System       | Storage Location      | Creation Method                          | Expiration Mechanism     | Primary Use Cases                          |
+|--------------|-----------------------|------------------------------------------|--------------------------|--------------------------------------------|
+| **Local**    | Local disk            | User or Agent (manual/automatic)         | Manual management        | Personal preferences, project conventions, temporary tasks |
+| **Cloud**    | GitHub cloud          | Agent **automatically** discovers & creates | Auto-expire after 28 days | Codebase architecture, cross-file dependencies, team conventions |
+
+**Core Benefits**:
+- Reduces repetitive explanations.
+- Enables knowledge sharing across Agents.
+- **Real-time validation** of referenced code before each use, ensuring memories stay up-to-date.
+
+## Local Memory Tool
+
+The Memory Tool is a built-in agent tool (currently in preview and enabled by default). It allows agents to save and recall notes while working.
+
+Memories are stored as Markdown files in the local `memories/` directory, for example:  
+`C:\Users\yiyiz\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\memory-tool\memories`
+
+::: tip Enable / Disable
+You can control the Memory Tool via the [`github.copilot.chat.tools.memory.enabled`](vscode://settings/github.copilot.chat.tools.memory.enabled) setting.
 :::
 
 ### Memory Scopes
 
-| Scope | Path | Persists Across Sessions | Persists Across Workspaces | Use For |
-|---|---|---|---|---|
-| **User** | `/memories/` | ✅ | ✅ | Preferences, patterns, frequently used commands |
-| **Repository** | `/memories/repo/` | ✅ | ❌ (workspace-scoped) | Codebase conventions, project structure, build commands |
-| **Session** | `/memories/session/` | ❌ (cleared when chat ends) | ❌ | Task-specific context, in-progress plans |
+| Scope      | Path                    | Recommended Use Cases |
+|------------|-------------------------|-----------------------|
+| **User**   | `/memories/`            | Personal preferences. The first 200 lines are automatically loaded into context at the start of each session. |
+| **Repository** | `/memories/repo/`   | Project-specific conventions (architecture, naming, build commands). |
+| **Session** | `/memories/session/`   | Limited to the current conversation (e.g., `plan.md` created by the Plan Agent). |
 
-### User Memory
+### How to Use It
 
-Persists across all workspaces and conversations. The first 200 lines are automatically loaded into context at the start of every session.
+1. **Store a memory** (natural language):
+   ```
+   Remember that our team uses conventional commits for all commit messages.
+   Remember that I prefer tabs over spaces and always use single quotes in JavaScript.
+   ```
 
-```
-Remember that I prefer tabs over spaces and always use single quotes in JavaScript
-```
+2. **Query a memory**:
+   ```
+   What are our commit message conventions?
+   ```
 
-### Repository Memory
+3. **Management commands** (Command Palette):
+   - **Chat: Show Memory Files** → View all memory files (clickable to jump to them).
+   - **Chat: Clear All Memory Files** → Delete all memories (individual deletion is not yet supported; let the Agent update/overwrite instead).
 
-Scoped to the current workspace. Use for codebase-specific facts.
+::: tip Tip
+The Agent automatically chooses the most appropriate Scope and creates/updates the corresponding file.
 
-```
-Remember that this project uses the repository pattern for data access
-and all API endpoints require authentication
-```
-
-### Session Memory
-
-Scoped to the current conversation. The Plan agent uses session memory to persist its implementation plan in `plan.md`.
-
-### Storing and Retrieving
-
-**Store:** Ask the agent to remember something — it determines the appropriate scope automatically.
-
-```
-Remember that our team uses conventional commits for all commit messages
-```
-
-**Retrieve:** Ask about it in a new conversation.
-
-```
-What are our commit message conventions?
-```
+Memory files can be clicked and viewed directly from chat responses.
+:::
 
 ### Managing Memory Files
 
-- `Chat: Show Memory Files` — view all memory files across scopes
-- `Chat: Clear All Memory Files` — remove all memories
+- `Chat: Show Memory Files` — View memory files across all scopes.
+- `Chat: Clear All Memory Files` — Delete all memories.
 
-## Copilot Memory (GitHub-Hosted)
+## Cloud Memory (GitHub-hosted)
 
-Copilot Memory is a separate, GitHub-hosted memory system that lets Copilot learn repository-specific insights as it works. Unlike the local memory tool, Copilot Memory is shared across multiple surfaces (coding agent, code review, Copilot CLI).
+Copilot Memory is a separate, GitHub-hosted memory system that allows Copilot to learn repository-specific knowledge. Unlike the local Memory Tool, cloud Copilot Memory is shared across multiple platforms (Coding Agent, Code Review, Copilot CLI).
 
 ### Key Differences
 
-| Feature | Local Memory Tool | Copilot Memory |
-|---|---|---|
-| Storage | Local (your machine) | GitHub-hosted (remote) |
-| Scopes | User, repository, session | Repository only |
-| Shared across surfaces | No (VS Code only) | Yes (coding agent, code review, CLI) |
-| Created by | You or the agent during chat | Copilot agents automatically |
-| Enabled by default | Yes | No (opt-in) |
-| Expiration | Manual management | Automatic (28 days) |
+| Feature                  | Local Memory Tool          | Copilot Memory (Cloud)              |
+|--------------------------|----------------------------|-------------------------------------|
+| Storage Location         | Local (your machine)       | GitHub-hosted (remote)              |
+| Scope                    | User, Repository, Session  | Repository only                     |
+| Cross-platform Sharing   | No (VS Code only)          | Yes (Coding Agent, Code Review, CLI)|
+| Creation Method          | By you or Agent in chat    | Automatically generated by Copilot Agents |
+| Default Status           | Enabled                    | Disabled by default (requires opt-in)|
+| Expiration               | Manual management          | Automatic (deleted after 28 days)   |
 
 ### Enabling Copilot Memory
 
-1. Enable in your [GitHub Copilot settings](https://github.com/settings/copilot)
-2. Enable VS Code integration: `github.copilot.chat.copilotMemory.enabled`
-3. Repository owners can review stored memories in Repository Settings > Copilot > Memory
+1. Enable it in your [GitHub Copilot settings](https://github.com/settings/copilot).
+2. Enable VS Code integration: [`github.copilot.chat.copilotMemory.enabled`](vscode://settings/github.copilot.chat.copilotMemory.enabled).
+3. Repository owners can review stored memories in **Repository Settings > Copilot > Memory**.
 
 ## References
 
 - [Memory in VS Code agents](https://code.visualstudio.com/docs/copilot/agents/memory)
-- [Enabling and curating Copilot Memory](https://docs.github.com/copilot/how-tos/use-copilot-agents/copilot-memory)
+- [Enabling and managing Copilot Memory](https://docs.github.com/en/copilot/how-tos/use-copilot-agents/copilot-memory)
