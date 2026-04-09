@@ -15,10 +15,15 @@ export const navEn = [
     activeMatch: '/customization/'
   },
   {
-    text: 'Best Practices',
-    link: '/best-practices/',
-    activeMatch: '/best-practices/'
-  }
+    text: 'Copilot CLI',
+    link: '/copilot-cli/',
+    activeMatch: '/copilot-cli/'
+  },
+  // {
+  //   text: 'Best Practices',
+  //   link: '/best-practices/',
+  //   activeMatch: '/best-practices/'
+  // }
 ]
 
 export const navZh = [
@@ -38,9 +43,14 @@ export const navZh = [
     activeMatch: '/zh/customization/'
   },
   {
-    text: '最佳实践',
-    link: '/zh/best-practices/',
-    activeMatch: '/zh/best-practices/'
-  }
+    text: '命令行工具',
+    link: '/zh/copilot-cli/',
+    activeMatch: '/zh/copilot-cli/'
+  },
+  // {
+  //   text: '最佳实践',
+  //   link: '/zh/best-practices/',
+  //   activeMatch: '/zh/best-practices/'
+  // }
 ]
 

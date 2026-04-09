@@ -27,6 +27,20 @@ export const sidebarEn = {
       ]
     }
   ],
+  '/copilot-cli/': [
+    {
+      text: 'Copilot CLI',
+      items: [
+        { text: 'Overview', link: '/copilot-cli/' },
+        { text: 'Installation', link: '/copilot-cli/installation' },
+        { text: 'Usage Guide', link: '/copilot-cli/usage' },
+        { text: 'Configuration', link: '/copilot-cli/configuration' },
+        { text: 'Customization', link: '/copilot-cli/customization' },
+        { text: 'Security', link: '/copilot-cli/security' },
+        { text: 'Advanced Features', link: '/copilot-cli/advanced' }
+      ]
+    }
+  ],
   '/customization/': [
     {
       text: 'Customization',
@@ -80,6 +94,20 @@ export const sidebarZh = {
         { text: '命令行界面', link: '/zh/agents/copilot-cli' },
         { text: '云端智能体', link: '/zh/agents/cloud-agents' },
         { text: '第三方智能体', link: '/zh/agents/third-party-agents' }
+      ]
+    }
+  ],
+  '/zh/copilot-cli/': [
+    {
+      text: 'Copilot CLI',
+      items: [
+        { text: '概述', link: '/zh/copilot-cli/' },
+        { text: '安装指南', link: '/zh/copilot-cli/installation' },
+        { text: '使用指南', link: '/zh/copilot-cli/usage' },
+        { text: '配置指南', link: '/zh/copilot-cli/configuration' },
+        { text: '定制化', link: '/zh/copilot-cli/customization' },
+        { text: '安全性', link: '/zh/copilot-cli/security' },
+        { text: '高级功能', link: '/zh/copilot-cli/advanced' }
       ]
     }
   ],

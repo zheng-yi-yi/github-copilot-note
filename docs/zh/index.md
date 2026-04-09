@@ -20,6 +20,9 @@ features:
   - title: 🤖 智能体 (Agents)
     details: 掌握规划、记忆、子智能体、Copilot CLI 后台会话以及用于自主工作流的云端智能体。
     link: /zh/agents/
+  - title: 💻 Copilot CLI
+    details: 直接在终端中使用 Copilot——交互式会话、计划模式、并行智能体、GitHub 集成等。
+    link: /zh/copilot-cli/
   - title: ⚙️ 自定义
     details: 配置自定义指令、提示词文件、智能体技能、自定义智能体、MCP 服务器、钩子和插件。
     link: /zh/customization/

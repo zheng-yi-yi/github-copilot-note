@@ -20,6 +20,9 @@ features:
   - title: 🤖 Agents
     details: Master planning, memory, subagents, Copilot CLI background sessions, and cloud agents for autonomous workflows.
     link: /agents/
+  - title: 💻 Copilot CLI
+    details: Use Copilot directly from your terminal — interactive sessions, plan mode, parallel agents, GitHub integration, and more.
+    link: /copilot-cli/
   - title: ⚙️ Customization
     details: Configure custom instructions, prompt files, agent skills, custom agents, MCP servers, hooks, and plugins.
     link: /customization/
