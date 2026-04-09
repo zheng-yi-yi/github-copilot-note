@@ -64,7 +64,7 @@ export const sidebarZh = {
         { text: '上下文', link: '/zh/concepts/context' },
         { text: '工具', link: '/zh/concepts/tools' },
         { text: '智能体', link: '/zh/concepts/agents' },
-        { text: '自定义', link: '/zh/customization' }
+        { text: '定制化', link: '/zh/concepts/customization' }
       ]
     }
   ],
@@ -85,7 +85,7 @@ export const sidebarZh = {
   ],
   '/zh/customization/': [
     {
-      text: '自定义',
+      text: '扩展与定制',
       items: [
         { text: '概述', link: '/zh/customization/' },
         { text: '自定义指令', link: '/zh/customization/custom-instructions' },

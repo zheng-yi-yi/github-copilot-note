@@ -1,134 +1,98 @@
-# 子智能体 (Subagents)
+# 子智能体
 
-子智能体是独立的 AI 智能体，执行专注的工作 — 调研、分析、审查 — 然后将结果报告给主智能体。它们提供 **上下文隔离**，在将复杂子任务委派出去的同时保持主对话的整洁。
+## 什么是 Subagent？
 
-## 子智能体如何工作
+GitHub Copilot 在 VS Code 中引入了**多智能体（Multi-Agent）**开发模式，让 Copilot 不再只是“单个聊天助手”，而是能像真实开发团队一样**分工协作**。
 
-```
-主智能体
-  ├─→ 子智能体 A（调研）    → 返回摘要
-  ├─→ 子智能体 B（分析）    → 返回发现
-  └── 合并 A 和 B 的结果继续
-```
+其中，**Subagent** 值得就是上下文隔离的独立 Agent，执行专注的工作（调研、分析、审查），运行在**独立上下文窗口**中，只接收必要子任务信息，最后将结果报告给主智能体，主智能体据此继续工作，避免主上下文被中间思考过程、大量工具调用或研究细节污染。
 
-1. 主智能体识别出任务中需要隔离处理的部分。
-2. 启动一个子智能体，仅传递相关的子任务。
-3. 子智能体在自己的上下文窗口中自主工作。
-4. 子智能体向主智能体返回摘要。
-5. 主智能体整合结果并继续。
+在 Copilot Chat 中以**可折叠工具调用**形式显示（默认收起，点击展开可查看完整提示词、所有工具调用、返回结果）。
+
+## 核心价值
+
+这样做的好处在于，多个独立子任务可**同时运行**，大幅缩短等待时间。解决了上下文窗口爆炸和“思考污染”问题。
+
+支持复杂工作流：研究 → 规划 → 实现 → 多视角审查，提升了开发效率。
+
+## 子智能体如何工作？
+
+从默认配置中我们可以看到，内置 Agent 是有 `runSubagent` 权限的：
+
+![image-20260407111619791](images/subagents/image-20260407111619791.png)
+
+当 Agent 收到复杂任务时，主 Agent 会识别适合隔离的子任务，然后启动子 Agent，传入最小必要上下文。此时，子 Agent会在自己的上下文窗口中自主工作（可使用工具、搜索代码库、调用 Web 等）。
+
+最后，子 Agent 会返回调研总结，主 Agent 会继续执行任务。
+
+::: info 备注
+
+子智能体**默认不继承**主智能体的 Memory（但可通过提示显式要求读取）。
+
+在聊天中以**可折叠工具调用**形式显示（点击展开可看完整提示词、工具调用、结果）。
+
+:::
 
 ## 使用场景
 
-- **实施前调研** — 在进行更改之前将调查工作委派给子智能体
-- **并行代码分析** — 同时分析多个文件或模块
-- **探索多种方案** — 每个子智能体探索不同的方法
-- **带有专门焦点的代码审查** — 安全性、性能、正确性审查并行进行
+::: details 案例1：隔离研究 + 推荐方案
+**场景**：新功能调研，避免污染主上下文。
 
-## 调用子智能体
-
-子智能体通常是 **智能体发起的** — 由主智能体决定何时使用。确保 `runSubagent` 工具已启用。
-
-你可以在提示词中暗示使用子智能体：
-
+**提示词**：
 ```
-对本项目使用的身份验证模式进行隔离调研，
-然后根据调研结果实施更改。
+对 Node.js OAuth 2.0 实现模式进行隔离研究，
+使用子智能体对比 passport.js、Auth0 和自定义实现三种方案。
+与当前代码库对比，输出推荐方案及优缺点表格。
 ```
 
-### 在提示词文件中
+**实际流程**：
+- 主智能体自动启动 1 个 Subagent。
+- Subagent 独立研究、分析代码、调用 `search/codebase` 等工具。
+- 返回简洁表格 → 主智能体直接用于后续实现。
+- 聊天中出现可折叠卡片，点击可查看 Subagent 完整思考过程。
+:::
 
-在提示词文件中包含 `agent` 工具：
+::: details 案例2：并行多维度代码分析
+**场景**：重构前全面扫描。
 
-```markdown
----
-name: document-feature
-tools: ['agent', 'read', 'search', 'edit']
----
-运行子智能体调研功能详情，
-然后更新 docs/ 文件夹中的文档。
-```
-
-## 自定义智能体作为子智能体
-
-自定义智能体可以作为子智能体使用，拥有自己的模型、工具和指令：
+**提示词**：
 
 ```
-运行 Research 智能体作为子智能体来调研最佳身份验证方法。
+对当前代码库进行重构机会分析，使用子智能体并行执行以下任务：
+1. 查找重复代码模式（duplication）
+2. 识别未使用导出和死代码
+3. 检查错误处理一致性
+4. 扫描安全漏洞（OWASP Top 10）
+
+最终汇总为带优先级的行动计划 Markdown。
 ```
 
-### 控制调用方式
+**效果**：4 个子智能体**同时运行**，等待时间大幅缩短。主智能体收到完整计划后可直接执行或继续委托实现。
+:::
 
-两个 Frontmatter 属性控制智能体的调用方式：
+::: details 案例3：多方案对比决策
+**场景**：API 缓存方案犹豫不决。
 
-| 属性 | 默认值 | 效果 |
-|---|---|---|
-| `user-invocable` | `true` | 控制在智能体下拉列表中的可见性 |
-| `disable-model-invocation` | `false` | 阻止作为子智能体被调用 |
+**提示词**：
+```
+我需要为这个 API 实现缓存。使用三个子智能体并行研究以下方案：
+1. Redis 分布式缓存
+2. 内存 LRU 缓存
+3. 分层混合缓存（内存 + Redis）
 
-创建仅作为子智能体的智能体（从下拉列表中隐藏）：
-
-```markdown
----
-name: internal-helper
-user-invocable: false
----
-此智能体只能作为子智能体被调用。
+对比性能、成本、可维护性，与项目当前技术栈匹配度，最后推荐最佳方案并给出实施步骤。
 ```
 
-### 限制可用的子智能体
+**实战收益**：避免主智能体在单一上下文里反复权衡，输出更客观。
+:::
 
-使用 `agents` 属性来控制可用的子智能体：
-
-```markdown
----
-name: TDD
-tools: ['agent']
-agents: ['Red', 'Green', 'Refactor']
----
-1. 使用 Red 智能体编写失败测试
-2. 使用 Green 智能体实现代码通过测试
-3. 使用 Refactor 智能体改进代码质量
-```
-
-## 编排模式
-
-### 协调器与工作者模式
-
-一个协调器智能体管理任务并委派给专门的工作者：
-
-```markdown
----
-name: Feature Builder
-tools: ['agent', 'edit', 'search', 'read']
-agents: ['Planner', 'Implementer', 'Reviewer']
----
-1. 使用 Planner 智能体分解功能
-2. 使用 Implementer 智能体编写代码
-3. 使用 Reviewer 智能体检查实现
-```
-
-### 多角度代码审查
-
-将每个审查角度作为并行子智能体运行，以获得独立、无偏见的发现：
-
-```markdown
----
-name: Thorough Reviewer
-tools: ['agent', 'read', 'search']
----
-并行运行以下子智能体：
-- 正确性审查：逻辑错误、边界情况
-- 安全性审查：注入风险、数据泄露
-- 架构审查：设计一致性
-
-将发现综合为按优先级排序的总结。
-```
 
 ## 嵌套子智能体
 
-默认情况下，子智能体不能再生成子智能体。通过 `chat.subagents.allowInvocationsFromSubagents` 启用（最大深度：5）。
+默认情况下，子智能体不能再生成子智能体。通过 [`chat.subagents.allowInvocationsFromSubagents`](vscode://settings/chat.subagents.allowInvocationsFromSubagents) 启用（最大深度：5）。
 
 ## 参考资料
 
-- [VS Code 中的子智能体](https://code.visualstudio.com/docs/copilot/agents/subagents)
-- [自定义智能体](https://code.visualstudio.com/docs/copilot/customization/custom-agents)
+- 官方文档：[Subagents in Visual Studio Code](https://code.visualstudio.com/docs/copilot/agents/subagents)
+- 官方概念：[Agents concepts - Subagents](https://code.visualstudio.com/docs/copilot/concepts/agents)
+- 2026 更新博客：[Parallel Subagents & Agentic Improvements](https://code.visualstudio.com/blogs/2026/01/parallel-subagents)
+- 社区模板：[github/awesome-copilot](https://github.com/github/awesome-copilot)

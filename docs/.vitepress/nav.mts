@@ -33,7 +33,7 @@ export const navZh = [
     activeMatch: '/zh/agents/'
   },
   {
-    text: '自定义',
+    text: '扩展与定制',
     link: '/zh/customization/',
     activeMatch: '/zh/customization/'
   },

@@ -1,4 +1,4 @@
-# 自定义 (Customization)
+# 定制化
 
 本节涵盖了在 VS Code 中自定义 GitHub Copilot 行为的所有方式 —— 从简单的指令文件到完整的智能体插件。
 
